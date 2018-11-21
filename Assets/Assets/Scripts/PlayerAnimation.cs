@@ -6,12 +6,8 @@ public class PlayerAnimation : MonoBehaviour {
 
 	private Animator _animatorPlayer;
 	
-	[SerializeField]
-	private Animator _animatorSwordArc;
-	
 	void Start () {
 		_animatorPlayer = GetComponentInChildren<Animator>();
-		//_animatorSwordArc = transform.GetChild(1).GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +21,5 @@ public class PlayerAnimation : MonoBehaviour {
 
 	public void Attack() {
 		_animatorPlayer.SetTrigger("triggerAttack");
-		_animatorSwordArc.SetTrigger("SwordAnimation");
 	}
 }
