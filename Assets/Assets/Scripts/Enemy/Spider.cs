@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Spider : Enemy, IDamageable {
 
-
 	public void Damage() {
-		throw new System.NotImplementedException();
+		
 	}
 
+	//User for initialization
+	protected override void Init() {
+		base.Init();
+	}
+	
 	public override void Update() {
-		throw new System.NotImplementedException();
+		HandleMoveAi();
 	}
 }
