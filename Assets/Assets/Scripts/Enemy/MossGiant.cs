@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class MossGiant : Enemy, IDamageable {
+public class MossGiant : Enemy {
 
     public override void Update() {
         HandleMoveAi();
@@ -13,8 +13,5 @@ public class MossGiant : Enemy, IDamageable {
     protected override void Init() {
         base.Init();
     }
-    
-    public void Damage() {
-        throw new System.NotImplementedException();
-    }
+   
 }

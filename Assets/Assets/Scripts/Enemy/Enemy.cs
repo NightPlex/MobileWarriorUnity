@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour {
+public abstract class Enemy : MonoBehaviour, IDamageable {
     [SerializeField]
     protected int speed;
     [SerializeField]
@@ -20,6 +20,7 @@ public abstract class Enemy : MonoBehaviour {
     protected virtual void Init() {
         _renderer = GetComponentInChildren<SpriteRenderer>();
         _enemyAnimation = GetComponentInChildren<EnemyAnimation>();
+        Health = health;
     }
 
     protected virtual void Start() {
@@ -29,8 +30,8 @@ public abstract class Enemy : MonoBehaviour {
     public abstract void Update();
 
     public virtual void HandleMoveAi() {
-        if (_enemyAnimation.IdleState()) return;
-
+        if (!_enemyAnimation.WalkState()) return;
+        
         if (_currentTarget.x == pointA.position.x) {
             _renderer.flipX = true;
         }
@@ -48,5 +49,16 @@ public abstract class Enemy : MonoBehaviour {
         }
 
         transform.position = Vector3.MoveTowards(transform.position, _currentTarget, speed * Time.deltaTime);
+    }
+
+    public int Health { get; set; }
+
+    public virtual void Damage() {
+        _enemyAnimation.TriggerGetHit();
+        Health = Health - 1;
+        if (Health <= 0) {
+            _enemyAnimation.TriggerDeath();
+            Destroy(gameObject, _enemyAnimation.GetDeathAnimationLength());
+        }
     }
 }

@@ -21,7 +21,24 @@ public class EnemyAnimation : MonoBehaviour {
 		return _animator.GetCurrentAnimatorStateInfo(0).IsName("idle");
 	}
 
+	public bool WalkState() {
+		return _animator.GetCurrentAnimatorStateInfo(0).IsName("walk");
+	}
+	
+	public float GetDeathAnimationLength() {
+		var info = _animator.GetCurrentAnimatorStateInfo(0);
+		return info.length;
+	}
+	
 	public void TriggerIdle() {
 		_animator.SetTrigger("Idle");
+	}
+
+	public void TriggerGetHit() {
+		_animator.SetTrigger("Hit");
+	}
+	
+	public void TriggerDeath() {
+		_animator.SetTrigger("Death");
 	}
 }

@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spider : Enemy, IDamageable {
-
-	public void Damage() {
-		
-	}
-
+public class Spider : Enemy {
 	//User for initialization
 	protected override void Init() {
 		base.Init();
