@@ -29,6 +29,10 @@ public class EnemyAnimation : MonoBehaviour {
 		var info = _animator.GetCurrentAnimatorStateInfo(0);
 		return info.length;
 	}
+
+	public void SetInCombat(bool inCombat) {
+		_animator.SetBool("InCombat", inCombat);
+	}
 	
 	public void TriggerIdle() {
 		_animator.SetTrigger("Idle");

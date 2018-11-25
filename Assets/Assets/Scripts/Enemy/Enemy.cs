@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IDamageable {
     [SerializeField]
@@ -8,11 +9,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
     [SerializeField]
     protected int gems;
     [SerializeField]
+    protected int agressionDistance;
+    [SerializeField]
     protected Transform pointA, pointB;
-    
+        
     private Vector3 _currentTarget;
     private SpriteRenderer _renderer;
     private EnemyAnimation _enemyAnimation;
+    private GameObject _player;
 
     public virtual void Attack() {
     }
@@ -21,6 +25,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
         _renderer = GetComponentInChildren<SpriteRenderer>();
         _enemyAnimation = GetComponentInChildren<EnemyAnimation>();
         Health = health;
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     protected virtual void Start() {
@@ -30,6 +35,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
     public abstract void Update();
 
     public virtual void HandleMoveAi() {
+
+        if (GetDistanceBetweenTarget() > agressionDistance) _enemyAnimation.SetInCombat(false);
+        
         if (!_enemyAnimation.WalkState()) return;
         
         if (_currentTarget.x == pointA.position.x) {
@@ -51,14 +59,22 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
         transform.position = Vector3.MoveTowards(transform.position, _currentTarget, speed * Time.deltaTime);
     }
 
+    
+    
     public int Health { get; set; }
 
     public virtual void Damage() {
         _enemyAnimation.TriggerGetHit();
         Health = Health - 1;
+        _enemyAnimation.SetInCombat(true);
         if (Health <= 0) {
             _enemyAnimation.TriggerDeath();
             Destroy(gameObject, _enemyAnimation.GetDeathAnimationLength());
         }
     }
+
+    protected float GetDistanceBetweenTarget() {
+        return Vector3.Distance(transform.position, _player.transform.position);
+    }
+    
 }
