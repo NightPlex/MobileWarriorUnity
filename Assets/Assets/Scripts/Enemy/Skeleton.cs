@@ -6,6 +6,7 @@ public class Skeleton : Enemy {
 
 	public override void Update() {
 		HandleMoveAi();
+		Attack();
 	}
 
 	//User for initialization

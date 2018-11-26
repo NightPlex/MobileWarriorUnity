@@ -19,6 +19,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
     private GameObject _player;
 
     public virtual void Attack() {
+        if (!_enemyAnimation.IsInCombat()) return;
+        Vector3 direction = _player.transform.localPosition - transform.localPosition;
+        _renderer.flipX = direction.x < 0;
     }
 
     protected virtual void Init() {
@@ -35,7 +38,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
     public abstract void Update();
 
     public virtual void HandleMoveAi() {
-
+        
         if (GetDistanceBetweenTarget() > agressionDistance) _enemyAnimation.SetInCombat(false);
         
         if (!_enemyAnimation.WalkState()) return;
@@ -65,7 +68,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
 
     public virtual void Damage() {
         _enemyAnimation.TriggerGetHit();
-        Health = Health - 1;
+        Health--;
         _enemyAnimation.SetInCombat(true);
         if (Health <= 0) {
             _enemyAnimation.TriggerDeath();
@@ -74,7 +77,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable {
     }
 
     protected float GetDistanceBetweenTarget() {
-        return Vector3.Distance(transform.position, _player.transform.position);
+        return Vector3.Distance(transform.localPosition, _player.transform.localPosition);
     }
     
 }

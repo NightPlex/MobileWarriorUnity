@@ -33,6 +33,10 @@ public class EnemyAnimation : MonoBehaviour {
 	public void SetInCombat(bool inCombat) {
 		_animator.SetBool("InCombat", inCombat);
 	}
+
+	public bool IsInCombat() {
+		return _animator.GetBool("InCombat");
+	}
 	
 	public void TriggerIdle() {
 		_animator.SetTrigger("Idle");

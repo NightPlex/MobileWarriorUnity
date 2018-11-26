@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IDamageable {
 
 	[SerializeField]
 	private float _jumpForce = 5.0f;
+	[SerializeField]
+	private int health = 10;
 	[SerializeField]
 	private LayerMask _layerMask;
 	private Rigidbody2D _rigid;
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour {
 		_rigid = GetComponent<Rigidbody2D>();
 		_playerAnimation = GetComponent<PlayerAnimation>();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		Health = health;
 	}
 	
 	// Update is called once per frame
@@ -58,6 +61,16 @@ public class Player : MonoBehaviour {
 			_spriteRenderer.flipX = false;
 		} else if (horizontalInput < 0) {
 			_spriteRenderer.flipX = true;
+		}
+	}
+
+	public int Health { get; set; }
+	
+	public void Damage() {
+		Debug.Log("i GOT DAMAGED");
+		Health--;
+		if (Health <= 0) {
+			Destroy(gameObject);
 		}
 	}
 }

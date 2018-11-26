@@ -8,6 +8,8 @@
       <e p="Assets" t="Include">
         <e p="Assets" t="Include">
           <e p="Scripts" t="Include">
+            <e p="Attack.cs" t="Include" />
+            <e p="AttackBehaviour.cs" t="Include" />
             <e p="Enemy" t="Include">
               <e p="Animation" t="Include">
                 <e p="EnemyAnimation.cs" t="Include" />
@@ -19,8 +21,6 @@
               <e p="Spider.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
-              <e p="Attack.cs" t="Include" />
-              <e p="AttackBehaviour.cs" t="Include" />
               <e p="Player.cs" t="Include" />
               <e p="PlayerAnimation.cs" t="Include" />
             </e>

@@ -7,6 +7,7 @@ public class MossGiant : Enemy {
 
     public override void Update() {
         HandleMoveAi();
+        Attack();
     }
 
     //User for initialization
